@@ -12,7 +12,7 @@ void Worker::callout(){
 
 void Worker::startWork(){
     callout();
-    Job *job;
+    myJobManualHub = supervisor -> getJobManualHub();
     while(isActive){
         bool ret = requestJob();
         if(!ret)
@@ -43,20 +43,8 @@ bool Worker::requestJob(){
 }
 
 void Worker::doJob(){
-   // std::cout<<"I'm worker No."<<workerID<<" my job is : "<<job_todo -> getType()<<std::endl;
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::string jType = job_todo -> getType();
-    if(jType == "sand to gold"){
-        job_done = new Job("gold to seed");
-    }else if (jType == "gold to seed"){
-        job_done = new Job("seed to plant");
-    }else if (jType == "seed to plant") {
-        job_done = new Job("plant to rice");
-    }else if (jType == "plant to rice") {
-        job_done = nullptr;
-    }
-    std::cout<<"I'm worker No."<<workerID<<" my job is : "<<job_todo -> getType()<<std::endl;
-   // std::cout<<"I'm worker No."<<workerID<<" my finished job is : "<<job_done -> getType()<<std::endl;
+    std::cout<<"I'm worker No."<<workerID<<" my job to do is : "<<job_todo -> getType()<<std::endl;
+    job_done = myJobManualHub -> doJob(job_todo);
     delete job_todo;
 }
 

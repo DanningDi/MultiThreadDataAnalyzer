@@ -14,7 +14,8 @@ class JobBoard{
     private:
     std::mutex boardLock;
     int jobCounter = 0;
-    int jobsLeft = 10;
+    int jobsLeft = 100;
+    int nJobsFinished = 0;
     std::unordered_map<std::string, JobQueue*> jobQueues;
 
 
@@ -23,6 +24,9 @@ class JobBoard{
     public:
     Job* nextJob();
     void pushJob(Job *job);
+    void reportJobStatus();
+    void addFinishedJobs();
+    int get_nJobsFinished();
     JobQueue* selectQueue();
     JobBoard(){
         jobQueues["sand to gold"] = new JobQueue();

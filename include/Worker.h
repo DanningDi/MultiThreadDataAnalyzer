@@ -4,6 +4,7 @@
 #include<vector>
 
 #include "Job.h"
+#include "JobManualHub.h"
 //#include "Supervisor.h"
 class Supervisor;
 class Worker{
@@ -13,6 +14,7 @@ class Worker{
     int workerID;
     Job *job_todo;
     Job *job_done;
+    JobManualHub *myJobManualHub;
     Supervisor *supervisor;
 
     public:

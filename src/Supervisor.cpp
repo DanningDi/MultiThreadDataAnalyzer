@@ -13,10 +13,16 @@ void Supervisor::recruitWorker(){
     std::cout<<"Recruited new woker!  Current number of worker are: "<<workers.size()<<std::endl;
 }
 
-void Supervisor::aquireJobBoard(JobBoard *jB){
+void Supervisor::aquireJobBoard(JobBoard *jB) {
     jobBoard = jB;
 }
 
+void Supervisor::addJobManualHub(JobManualHub *jobManualHub) {
+    myJobManualHub = jobManualHub;
+}
+JobManualHub* Supervisor::getJobManualHub() {
+    return myJobManualHub;
+}
 Job* Supervisor::giveJob(){
     return jobBoard -> nextJob();
 }
@@ -43,5 +49,6 @@ void Supervisor::postJob(Job *job){
 
 void Supervisor::postResult(){
     riceCount++;
+    jobBoard -> addFinishedJobs();
     std::cout<<"###############rice count: "<<riceCount<<std::endl; 
 }

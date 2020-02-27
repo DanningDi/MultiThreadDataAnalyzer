@@ -6,7 +6,9 @@ TARGET := decoder
 CXX := g++
 OPTION := -std=c++11 -o2 -g -pthread
 
-INCLUDE := -Iinclude
+INCLUDE := -I${CODA}/Linux-x86_64/include -Iinclude
+CODALIBS := -L${CODA}/Linux-x86_64/lib -levio -levioxx -lexpat
+
 
 all: ${TARGET}
 
@@ -20,8 +22,8 @@ clean:
 
 ${OBJECTDIR}/%.o: src/%.cpp
 #$(CXX) ${INCLUDE} -c $<
-	$(CXX) ${OPTION} ${INCLUDE} -c -o $@ $<
+	$(CXX) ${OPTION} ${INCLUDE} ${CODALIBS} -c -o $@ $<
 
 ${TARGET} : ${OBJECT}
 #	@echo ${OBJECT}
-	$(CXX) ${OPTION} ${INCLUDE} -o ${TARGET} ${OBJECT}
+	$(CXX) ${OPTION} ${INCLUDE} ${CODALIBS} -o ${TARGET} ${OBJECT}

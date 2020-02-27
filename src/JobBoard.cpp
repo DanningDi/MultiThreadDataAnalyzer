@@ -3,6 +3,23 @@
 #include <stdlib.h>
 #include <vector>
 
+void JobBoard::addFinishedJobs(){
+    nJobsFinished++;
+}
+
+int JobBoard::get_nJobsFinished(){
+    return nJobsFinished;
+}
+
+void JobBoard::reportJobStatus(){
+    std::cout << nJobsFinished << " ## ";
+    for(auto jobQueue : jobQueues){
+        std::cout << jobQueue.first << " " << (jobQueue.second) -> getSize() << " ";
+    }
+    std::cout << std::endl;
+   // getchar();
+}
+
 Job* JobBoard::nextJob(){
     Job *j;
     boardLock.lock();
@@ -13,6 +30,7 @@ Job* JobBoard::nextJob(){
         j = jobQueue -> popJob();
         jobsLeft--;
     }
+    reportJobStatus();
     boardLock.unlock();
     return j;
 }
